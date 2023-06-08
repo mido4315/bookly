@@ -5,4 +5,4 @@ App that provides free books.
 
 ![image](https://github.com/mido4315/bookly/assets/96996503/90b9543e-09ba-4cc5-b42c-c2712d67ddbe)
 
-![image](https://github.com/mido4315/bookly/assets/96996503/9519c2b1-f417-4d31-96c9-f088b2fe15de)
+![image](https://github.com/mido4315/bookly/assets/96996503/8c828ddd-5753-4627-9344-155fe5ea3d56)
