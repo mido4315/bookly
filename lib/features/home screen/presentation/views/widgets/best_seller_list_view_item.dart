@@ -1,5 +1,6 @@
-import 'package:bookly/core/utils/assets_data.dart';
 import 'package:bookly/core/utils/styles.dart';
+import 'package:bookly/features/home%20screen/data/models/book_model/book_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../constants.dart';
@@ -7,7 +8,10 @@ import '../../../../../core/utils/app_router.dart';
 import 'book_rating.dart';
 
 class BestSellerListViewItem extends StatelessWidget {
-  const BestSellerListViewItem({Key? key}) : super(key: key);
+  const BestSellerListViewItem({Key? key, required this.bookModel})
+      : super(key: key);
+
+  final BookModel bookModel;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,7 @@ class BestSellerListViewItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SizedBox(
@@ -27,19 +31,15 @@ class BestSellerListViewItem extends StatelessWidget {
             SizedBox(
               height: 120,
               child: AspectRatio(
-                aspectRatio: 0.66,
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.red,
-                      image: const DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                          AssetsData.testImage,
-                        ),
-                      )),
-                ),
-              ),
+                  aspectRatio: 0.66,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          bookModel.volumeInfo!.imageLinks!.smallThumbnail!,
+                      fit: BoxFit.fill,
+                    ),
+                  )),
             ),
             const SizedBox(
               width: 30,
@@ -49,10 +49,13 @@ class BestSellerListViewItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(
+                    height: 8,
+                  ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: Text(
-                      'Harry Potter and the Goblet of Fire',
+                      '${bookModel.volumeInfo!.title}',
                       style: Styles.textStyle20
                           .copyWith(fontFamily: kGtSectraFine),
                       maxLines: 2,
@@ -65,11 +68,11 @@ class BestSellerListViewItem extends StatelessWidget {
                   Opacity(
                     opacity: 0.7,
                     child: Text(
-                      'J.K. Rowling',
+                      bookModel.volumeInfo!.authors![0],
                       style: Styles.textStyle14.copyWith(
                         fontStyle: FontStyle.italic,
                       ),
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -80,12 +83,14 @@ class BestSellerListViewItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '19,99 \$',
+                        'Free',
                         style: Styles.textStyle20.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const BookRating()
+                      BookRating(
+                          ratingCount: bookModel.volumeInfo!.ratingsCount,
+                          ratingAverage: bookModel.volumeInfo!.averageRating)
                     ],
                   )
                 ],
