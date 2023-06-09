@@ -7,9 +7,9 @@ class BookDetailsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
+      children: [
         CustomButton(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(12),
