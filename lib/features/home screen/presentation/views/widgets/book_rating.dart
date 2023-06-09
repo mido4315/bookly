@@ -5,36 +5,40 @@ import '../../../../../core/utils/styles.dart';
 class BookRating extends StatelessWidget {
   const BookRating({
     Key? key,
+    required this.ratingCount,
+    required this.ratingAverage,
   }) : super(key: key);
+  final int? ratingCount;
+  final double? ratingAverage;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        Icon(
+      children: [
+        const Icon(
           FontAwesomeIcons.solidStar,
           color: Colors.yellow,
           size: 15,
         ),
-        SizedBox(
+        const SizedBox(
           width: 6.3,
         ),
         Text(
-          '4.8',
+          '${ratingAverage ?? 0}',
           style: Styles.textStyle16,
         ),
-        SizedBox(
+        const SizedBox(
           width: 5,
         ),
         Opacity(
           opacity: 0.5,
           child: Text(
-            '(2390)',
+            '(${ratingCount ?? 0})',
             style: Styles.textStyle14,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 17,
         ),
       ],
