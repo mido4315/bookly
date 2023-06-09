@@ -11,7 +11,7 @@ class ResultsListView extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         childCount: 22,
         (context, index) {
-          return const BestSellerListViewItem();
+         // return const BestSellerListViewItem();
         },
       ),
     );
