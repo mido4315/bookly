@@ -1,5 +1,10 @@
+import 'package:bookly/features/home%20screen/manger/similar_books_cubit/similar_books_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/utils/assets_data.dart';
+import '../../../../../core/utils/widgets/custom_error.dart';
+import '../../../../../core/utils/widgets/custom_loading_indicator.dart';
 import 'custom_book_image.dart';
 
 class BookDetailsListView extends StatelessWidget {
@@ -7,20 +12,33 @@ class BookDetailsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.15,
-      child: ListView.builder(
-        padding: const EdgeInsets.only(left: 26),
-        itemCount: 10,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return const CustomBookImage(
-            padding: EdgeInsets.only(right: 4, left: 4),
-            imageUrl:
-                'https://m.media-amazon.com/images/M/MV5BYTU3NWI5OGMtZmZhNy00MjVmLTk1YzAtZjA3ZDA3NzcyNDUxXkEyXkFqcGdeQXVyODY5Njk4Njc@._V1_.jpg',
+    return BlocBuilder<SimilarBooksCubit, SimilarBooksState>(
+      builder: (context, state) {
+        if (state is SimilarBooksSuccess) {
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * 0.15,
+            child: ListView.builder(
+              padding: const EdgeInsets.only(left: 26),
+              itemCount: state.newestBooksS.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return CustomBookImage(
+                  padding: const EdgeInsets.only(right: 4, left: 4),
+                  imageUrl: state.newestBooksS[index].volumeInfo.imageLinks
+                          ?.thumbnail ??
+                      AssetsData.imageNotFound,
+                );
+              },
+            ),
           );
-        },
-      ),
+        } else if (state is SimilarBooksFailure) {
+          return Center(
+            child: CustomErrorMessage(errorMessage: state.errorMessage),
+          );
+        } else {
+          return const CustomLoadingIndicator();
+        }
+      },
     );
   }
 }
