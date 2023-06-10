@@ -18,7 +18,7 @@ class BestSellerListView extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
               childCount: state.newestBooksS.length,
               (context, index) {
-                return BestSellerListViewItem(
+                return NewestListViewItem(
                   bookModel: state.newestBooksS[index],
                 );
               },
