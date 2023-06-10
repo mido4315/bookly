@@ -1,42 +1,58 @@
 import 'package:flutter/material.dart';
+
+import '../../../../../core/utils/assets_data.dart';
 import '../../../../../core/utils/styles.dart';
+import '../../../data/models/book_model/book_model.dart';
 import 'book_rating.dart';
 import 'custom_book_image.dart';
 
 class BookMainDetails extends StatelessWidget {
-  const BookMainDetails({Key? key}) : super(key: key);
+  const BookMainDetails({Key? key, required this.bookModel}) : super(key: key);
+  final BookModel bookModel;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.3,
-          child: const CustomBookImage(
-              padding: EdgeInsets.only(right: 4, left: 4), imageUrl: 'https://m.media-amazon.com/images/M/MV5BYTU3NWI5OGMtZmZhNy00MjVmLTk1YzAtZjA3ZDA3NzcyNDUxXkEyXkFqcGdeQXVyODY5Njk4Njc@._V1_.jpg',),
-        ),
-        const SizedBox(
-          height: 39,
-        ),
-        const Text(
-          'The Jungle Book',
-          style: Styles.textStyle30,
-        ),
-        const SizedBox(
-          height: 9,
-        ),
-        Opacity(
-          opacity: 0.5,
-          child: Text(
-            'Rudyard Kipling',
-            style: Styles.textStyle18.copyWith(fontStyle: FontStyle.italic),
+    return Center(
+      child: Column(
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: CustomBookImage(
+              padding: const EdgeInsets.only(right: 4, left: 4),
+              imageUrl: bookModel.volumeInfo.imageLinks?.thumbnail ??
+                  AssetsData.imageNotFound,
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 17,
-        ),
-        // const BookRating(),
-      ],
+          const SizedBox(
+            height: 39,
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Text(
+              bookModel.volumeInfo.title ?? 'Can\'t find book\'s name',
+              style: Styles.textStyle30,
+              maxLines: 1,
+            ),
+          ),
+          const SizedBox(
+            height: 9,
+          ),
+          Opacity(
+            opacity: 0.5,
+            child: Text(
+              bookModel.volumeInfo.authors?[0] ?? 'Can\'t find author\'s name',
+              style: Styles.textStyle18.copyWith(fontStyle: FontStyle.italic),
+            ),
+          ),
+          const SizedBox(
+            height: 17,
+          ),
+          BookRating(
+            ratingCount: bookModel.volumeInfo.ratingsCount,
+            ratingAverage: bookModel.volumeInfo.averageRating,
+          ),
+        ],
+      ),
     );
   }
 }

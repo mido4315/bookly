@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+
 import '../../../../../core/utils/styles.dart';
+import '../../../data/models/book_model/book_model.dart';
 import 'book_details_button.dart';
 import 'book_details_list_view.dart';
 import 'book_main_details.dart';
 import 'custom_book_details_app_bar.dart';
 
 class BookDetailsViewBody extends StatelessWidget {
-  const BookDetailsViewBody({Key? key}) : super(key: key);
+  const BookDetailsViewBody({Key? key, required this.bookModel})
+      : super(key: key);
+  final BookModel bookModel;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +23,13 @@ class BookDetailsViewBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomBookDetailsAppBar(),
-              const BookMainDetails(),
+              BookMainDetails(
+                bookModel: bookModel,
+              ),
               const SizedBox(
                 height: 38,
               ),
-              const BookDetailsButton(),
+               BookDetailsButton(bookModel: bookModel,),
               const Expanded(
                 child: SizedBox(),
               ),
