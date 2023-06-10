@@ -1,14 +1,16 @@
+import 'package:bookly/core/utils/assets_data.dart';
 import 'package:bookly/core/utils/styles.dart';
 import 'package:bookly/features/home%20screen/data/models/book_model/book_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../../../constants.dart';
 import '../../../../../core/utils/app_router.dart';
 import 'book_rating.dart';
 
-class BestSellerListViewItem extends StatelessWidget {
-  const BestSellerListViewItem({Key? key, required this.bookModel})
+class NewestListViewItem extends StatelessWidget {
+  const NewestListViewItem({Key? key, required this.bookModel})
       : super(key: key);
 
   final BookModel bookModel;
@@ -17,7 +19,10 @@ class BestSellerListViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push(AppRouter.kBookDetailsView);
+        GoRouter.of(context).push(
+          AppRouter.kBookDetailsView,
+          extra: bookModel,
+        );
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20),
@@ -35,8 +40,8 @@ class BestSellerListViewItem extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: CachedNetworkImage(
-                      imageUrl:
-                          bookModel.volumeInfo!.imageLinks!.smallThumbnail!,
+                      imageUrl: bookModel.volumeInfo.imageLinks?.thumbnail ??
+                          AssetsData.imageNotFound,
                       fit: BoxFit.fill,
                     ),
                   )),
@@ -55,7 +60,7 @@ class BestSellerListViewItem extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: Text(
-                      '${bookModel.volumeInfo!.title}',
+                      bookModel.volumeInfo.title ?? '',
                       style: Styles.textStyle20
                           .copyWith(fontFamily: kGtSectraFine),
                       maxLines: 2,
@@ -68,7 +73,7 @@ class BestSellerListViewItem extends StatelessWidget {
                   Opacity(
                     opacity: 0.7,
                     child: Text(
-                      bookModel.volumeInfo!.authors![0],
+                      bookModel.volumeInfo.authors?[0] ?? '',
                       style: Styles.textStyle14.copyWith(
                         fontStyle: FontStyle.italic,
                       ),
@@ -89,8 +94,9 @@ class BestSellerListViewItem extends StatelessWidget {
                         ),
                       ),
                       BookRating(
-                          ratingCount: bookModel.volumeInfo!.ratingsCount,
-                          ratingAverage: bookModel.volumeInfo!.averageRating)
+                          ratingCount: bookModel.volumeInfo.ratingsCount,
+                          ratingAverage:
+                              bookModel.volumeInfo.averageRating)
                     ],
                   )
                 ],
