@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../../core/utils/styles.dart';
 import 'custom_search_bar.dart';
 import 'results_list_view.dart';
