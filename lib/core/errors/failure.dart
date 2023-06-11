@@ -9,33 +9,58 @@ abstract class Failure {
 class ServerFailure extends Failure {
   const ServerFailure(super.errorMessage);
 
-  factory ServerFailure.fromDioError(DioError dioError) {
+  factory ServerFailure.fromDioError(DioException dioError) {
     switch (dioError.type) {
-      case DioErrorType.connectTimeout:
+      case DioExceptionType.connectionTimeout:
         return const ServerFailure('Connection timeout with ApiServer');
 
-      case DioErrorType.sendTimeout:
+      case DioExceptionType.sendTimeout:
         return const ServerFailure('Send timeout with ApiServer');
 
-      case DioErrorType.receiveTimeout:
+      case DioExceptionType.receiveTimeout:
         return const ServerFailure('Receive timeout with ApiServer');
 
-      case DioErrorType.response:
+      case  DioExceptionType.badResponse:
         return ServerFailure.fromResponse(
             dioError.response!.statusCode, dioError.response!.data);
 
-      case DioErrorType.cancel:
+      case DioExceptionType.cancel:
         return const ServerFailure('Request to ApiServer was canceled');
 
-      case DioErrorType.other:
-        if (dioError.message.contains('SocketException')) {
-          return const ServerFailure('No Internet Connection');
-        }
+      case DioExceptionType.connectionError:
+        return const ServerFailure('Connection Error!');
+
+      case DioExceptionType.unknown:
         return const ServerFailure('Unexpected Error, Please try again!');
 
       default:
         return const ServerFailure('Opps There was an Error, Please try again');
     }
+      // case DioExceptionType.connectionTimeout:
+      //   //
+      //   break;
+      // case DioExceptionType.sendTimeout:
+      //
+      //   break;
+      // case DioExceptionType.receiveTimeout:
+      //
+      //   break;
+      // case DioExceptionType.badCertificate:
+      //
+      //   break;
+      // case DioExceptionType.badResponse:
+      //
+      //   break;
+      // case DioExceptionType.cancel:
+      //
+      //   break;
+      // case DioExceptionType.connectionError:
+      //
+      //   break;
+      // case DioExceptionType.unknown:
+      //   
+      //   break;
+      //
   }
 
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
