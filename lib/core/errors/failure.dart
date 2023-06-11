@@ -58,7 +58,7 @@ class ServerFailure extends Failure {
       //
       //   break;
       // case DioExceptionType.unknown:
-      //   
+      //
       //   break;
       //
   }
