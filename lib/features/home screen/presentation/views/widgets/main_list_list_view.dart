@@ -2,7 +2,10 @@ import 'package:bookly/features/home%20screen/manger/featured_Books_cubit/featur
 import 'package:bookly/features/home%20screen/presentation/views/widgets/custom_book_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../../core/utils/app_router.dart';
+import '../../../../../core/utils/assets_data.dart';
 import '../../../../../core/utils/widgets/custom_error.dart';
 import '../../../../../core/utils/widgets/custom_loading_indicator.dart';
 
@@ -22,10 +25,18 @@ class MainBooksListView extends StatelessWidget {
               itemCount: state.featuredBooksS.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return CustomBookImage(
-                  padding: const EdgeInsets.only(right: 4, left: 4),
-                  imageUrl:
-                      '${state.featuredBooksS[index].volumeInfo!.imageLinks!.thumbnail}',
+                return GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).push(
+                      AppRouter.kBookDetailsView,
+                      extra: state.featuredBooksS[index],
+                    );
+                  },
+                  child: CustomBookImage(
+                    padding: const EdgeInsets.only(right: 4, left: 4),
+                    imageUrl:
+                        state.featuredBooksS[index].volumeInfo.imageLinks?.thumbnail ?? AssetsData.imageNotFound,
+                  ),
                 );
               },
             ),
