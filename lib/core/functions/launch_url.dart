@@ -13,7 +13,7 @@ Future<void> launchCustomUrl(context, String? url) async {
     } else {
       customSnackBar(context, 'Cannot launch $url');
     }
-  }else{
+  } else {
     customSnackBar(context, 'Cannot launch $url');
   }
 }

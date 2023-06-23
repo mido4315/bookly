@@ -8,11 +8,19 @@ import 'api_service.dart';
 final getIt = GetIt.instance;
 
 void setupServiceLocator() {
-  getIt.registerSingleton<APIService>(APIService(Dio()));
-  getIt.registerSingleton<HomeRepoImpl>(HomeRepoImpl(
-    getIt.get<APIService>(),
-  ));
-  getIt.registerSingleton<SearchRepoImpl>(SearchRepoImpl(
-    getIt.get<APIService>(),
-  ));
+  getIt.registerSingleton<APIService>(
+    APIService(
+      Dio(),
+    ),
+  );
+  getIt.registerSingleton<HomeRepoImpl>(
+    HomeRepoImpl(
+      getIt.get<APIService>(),
+    ),
+  );
+  getIt.registerSingleton<SearchRepoImpl>(
+    SearchRepoImpl(
+      getIt.get<APIService>(),
+    ),
+  );
 }

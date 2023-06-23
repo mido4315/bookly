@@ -34,8 +34,9 @@ class MainBooksListView extends StatelessWidget {
                   },
                   child: CustomBookImage(
                     padding: const EdgeInsets.only(right: 4, left: 4),
-                    imageUrl:
-                        state.featuredBooksS[index].volumeInfo.imageLinks?.thumbnail ?? AssetsData.imageNotFound,
+                    imageUrl: state.featuredBooksS[index].volumeInfo.imageLinks
+                            ?.thumbnail ??
+                        AssetsData.imageNotFound,
                   ),
                 );
               },

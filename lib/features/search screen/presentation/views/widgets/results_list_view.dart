@@ -18,14 +18,14 @@ class ResultsListView extends StatelessWidget {
             return SliverList(
               delegate: SliverChildBuilderDelegate(
                 childCount: state.searchBooks.length,
-                    (context, index) {
+                (context, index) {
                   return NewestListViewItem(
                     bookModel: state.searchBooks[index],
                   );
                 },
               ),
             );
-          }else{
+          } else {
             return const SliverToBoxAdapter(
               child: CustomLoadingIndicator(),
             );
