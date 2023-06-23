@@ -33,7 +33,8 @@ abstract class AppRouter {
             final arguments = state.extra as BookModel;
             return BlocProvider(
               create: (context) => SimilarBooksCubit(getIt.get<HomeRepoImpl>())
-                ..fetchSimilarBooks(arguments.volumeInfo.categories?[0] ?? 'programming'),
+                ..fetchSimilarBooks(
+                    arguments.volumeInfo.categories?[0] ?? 'programming'),
               child: BookDetailsView(bookModel: arguments),
             );
           }),
