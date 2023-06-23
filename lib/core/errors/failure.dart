@@ -20,7 +20,7 @@ class ServerFailure extends Failure {
       case DioExceptionType.receiveTimeout:
         return const ServerFailure('Receive timeout with ApiServer');
 
-      case  DioExceptionType.badResponse:
+      case DioExceptionType.badResponse:
         return ServerFailure.fromResponse(
             dioError.response!.statusCode, dioError.response!.data);
 
@@ -36,31 +36,31 @@ class ServerFailure extends Failure {
       default:
         return const ServerFailure('Opps There was an Error, Please try again');
     }
-      // case DioExceptionType.connectionTimeout:
-      //   //
-      //   break;
-      // case DioExceptionType.sendTimeout:
-      //
-      //   break;
-      // case DioExceptionType.receiveTimeout:
-      //
-      //   break;
-      // case DioExceptionType.badCertificate:
-      //
-      //   break;
-      // case DioExceptionType.badResponse:
-      //
-      //   break;
-      // case DioExceptionType.cancel:
-      //
-      //   break;
-      // case DioExceptionType.connectionError:
-      //
-      //   break;
-      // case DioExceptionType.unknown:
-      //
-      //   break;
-      //
+    // case DioExceptionType.connectionTimeout:
+    //   //
+    //   break;
+    // case DioExceptionType.sendTimeout:
+    //
+    //   break;
+    // case DioExceptionType.receiveTimeout:
+    //
+    //   break;
+    // case DioExceptionType.badCertificate:
+    //
+    //   break;
+    // case DioExceptionType.badResponse:
+    //
+    //   break;
+    // case DioExceptionType.cancel:
+    //
+    //   break;
+    // case DioExceptionType.connectionError:
+    //
+    //   break;
+    // case DioExceptionType.unknown:
+    //
+    //   break;
+    //
   }
 
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
