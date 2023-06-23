@@ -6,7 +6,7 @@ class CustomLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
+    return Center(
       child: Shimmer.fromColors(
         baseColor: Colors.deepPurple,
         highlightColor: Colors.blueAccent,
@@ -15,8 +15,7 @@ class CustomLoadingIndicator extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 40.0,
-            fontWeight:
-            FontWeight.bold,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
