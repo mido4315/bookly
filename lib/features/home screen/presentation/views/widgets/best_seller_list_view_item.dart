@@ -95,8 +95,7 @@ class NewestListViewItem extends StatelessWidget {
                       ),
                       BookRating(
                           ratingCount: bookModel.volumeInfo.ratingsCount,
-                          ratingAverage:
-                              bookModel.volumeInfo.averageRating)
+                          ratingAverage: bookModel.volumeInfo.averageRating)
                     ],
                   )
                 ],
